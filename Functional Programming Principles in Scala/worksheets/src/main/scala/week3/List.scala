@@ -1,0 +1,26 @@
+package week3
+
+import java.util.NoSuchElementException
+
+/**
+  * Created by keid on 25/09/2016.
+  */
+trait List[T] {
+
+  def isEmpty: Boolean
+  def head: T
+  def tail: List[T]
+
+}
+
+// val only eval at initialisation and vals are field overriding the abstract method of the trait
+class Cons[T](val head: T, val tail: List[T]) extends List[T]{
+  def isEmpty = false
+}
+
+class Nil[T] extends List[T]{
+  def isEmpty: Boolean = true
+  def head: Nothing = throw new NoSuchElementException("Nil.head")
+  def tail: Nothing = throw new NoSuchElementException("Nil.tail")
+
+}
