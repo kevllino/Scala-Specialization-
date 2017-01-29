@@ -1,12 +1,9 @@
 package recfun
 
-import org.scalatest.FunSuite
-
-
+import org.scalatest._
+import org.scalatest.Assertions._
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class PascalSuite extends FunSuite {
   import Main.pascal
     test("pascal: col=0,row=2") {
@@ -19,6 +16,12 @@ class PascalSuite extends FunSuite {
 
     test("pascal: col=1,row=3") {
       assert(pascal(1,3) === 3)
+  }
+
+  test("Negative Arguments IllegalArgumentException") {
+    intercept[java.lang.IllegalArgumentException] {
+      assert(pascal(-1, -1) === 0)
+    }
   }
 
 }

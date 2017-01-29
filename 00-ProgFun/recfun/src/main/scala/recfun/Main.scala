@@ -14,8 +14,9 @@ object Main {
     * Exercise 1
     */
   def pascal(c: Int, r: Int): Int = {
-    if(c==0 && r ==0) 1
-    else if(c==0 && r>0) 1
+    require(c >= 0 && r >= 0)
+    if(c == 0 && r == 0) 1
+    else if(c == 0 && r > 0) 1
     else if (c > 0 && r > 0) (pascal(c - 1, r-1) + pascal(c , r -1))
     else 0
   }
@@ -40,11 +41,27 @@ object Main {
 
   }
 
+
+  def balance_2(chars: List[Char]): Boolean = {
+    def go(paran: List[Char], acc: Int): Boolean = {
+      paran match {
+        case l if l.isEmpty => acc == 0
+        case h :: t if h == '(' => go(t, acc + 1)
+        case h :: t if acc > 0  && h == ')' => go(t, acc - 1)
+        case h :: t if h == ')' => false
+        case _ :: t =>  go(t, acc)
+      }
+    }
+    go(chars, 0)
+  }
+
   /**
     * Exercise 3
     */
 
   def countChange(money: Int, coins: List[Int]): Int = {
+    // require(money >= 0)
+    require(coins.forall(_ > 0))
     // if money = 0 and list of coins not empty then 1 way money = 0 * t1 + 0 *2
     if (money == 0 && !coins.isEmpty) 1
     else if (money > 0 && !coins.isEmpty)
