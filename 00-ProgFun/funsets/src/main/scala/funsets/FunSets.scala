@@ -20,14 +20,13 @@ object FunSets {
    * Returns the set of the one given element.
    */
     def singletonSet(elem: Int): Set = (x: Int) => x == elem
-  
 
   /**
    * Returns the union of the two given sets,
    * the sets of all elements that are in either `s` or `t`.
    */
     def union(s: Set, t: Set): Set = (x: Int) => contains(s, x) || contains(t, x)
-  
+
   /**
    * Returns the intersection of the two given sets,
    * the set of all elements that are both in `s` and `t`.
@@ -55,26 +54,44 @@ object FunSets {
    * Returns whether all bounded integers within `s` satisfy `p`.
    */
   def forall(s: Set, p: Int => Boolean): Boolean = {
-    def iter(a: Int): Boolean = {
+    def go(a: Int): Boolean = {
       if ( a > bound ) true
-      else if (contains(s, a) && !contains(p, a)) false
-      else iter(a + 1)
+      else if (contains(s, a) && !p(a)) false
+      else go(a + 1)
     }
-    iter(-bound)
+    go(-bound)
   }
-  
+
   /**
    * Returns whether there exists a bounded integer within `s`
    * that satisfies `p`.
    */
   // def negate(p: Int => Boolean): Int => Boolean = (x: Int) => !p(x)
     def exists(s: Set, p: Int => Boolean): Boolean =  !forall(s,((x: Int) => !p(x)) )
-  
+
+  def exists_2(s: Set, p: Int => Boolean): Boolean = {
+    def go(a: Int): Boolean = {
+      if ( a > bound ) false
+      else if (contains(s, a) && p(a)) true
+      else go(a + 1)
+    }
+    go(-bound)
+  }
+
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    */
   def map(s: Set, f: Int => Int): Set = (x: Int) => exists(s, (y: Int) => x == f(y))
-  
+
+  def map_2(s: Set, f: Int => Int): Set = (x: Int) => {
+    def go(y: Int): Boolean = {
+      if ( y > bound ) false
+      else if (contains(s, y) && f(x) == y) true
+      else go(y + 1)
+    }
+    go(-bound)
+  }
+
   /**
    * Displays the contents of a set
    */
