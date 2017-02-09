@@ -66,7 +66,7 @@ abstract class TweetSet {
 
   def isEmpty: Boolean
   def mostRetweeted: Tweet
-
+  def mostRetweetedAcc(max: Tweet): Tweet
   /**
     * Returns a list containing all tweets of this set, sorted by retweet count
     * in descending order. In other words, the head of the resulting list should
@@ -111,6 +111,7 @@ class Empty extends TweetSet {
   def union(that: TweetSet): TweetSet = that
   def isEmpty: Boolean = true
   def mostRetweeted: Tweet = throw new java.util.NoSuchElementException
+  def mostRetweetedAcc(max: Tweet): Tweet = max
   def descendingByRetweet: TweetList = Nil
 
   /**
@@ -135,21 +136,25 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 
   def isEmpty: Boolean = false
 
-  def mostRetweeted: Tweet = {
-    def mostRetweetedAcc(acc: Tweet): Tweet = {
-      lazy val leftTweet: Tweet = left.mostRetweeted
-      lazy val rightTweet: Tweet = right.mostRetweeted
-      if (!left.isEmpty && acc.retweets < leftTweet.retweets) {
-        if (!right.isEmpty && leftTweet.retweets < rightTweet.retweets)
-          rightTweet
-        else
-          leftTweet
-      }
-      else if (!right.isEmpty && acc.retweets < right.mostRetweeted.retweets) rightTweet
-      else acc
-    }
-    mostRetweetedAcc(elem)
-  }
+  def mostRetweeted: Tweet = mostRetweetedAcc(elem)
+  def mostRetweetedAcc(max: Tweet): Tweet =
+    left.mostRetweetedAcc(right.mostRetweetedAcc(if(elem.retweets > max.retweets) elem else max))
+
+//  def mostRetweeted: Tweet = {
+//    def mostRetweetedAcc(acc: Tweet): Tweet = {
+//      lazy val leftTweet: Tweet = left.mostRetweeted
+//      lazy val rightTweet: Tweet = right.mostRetweeted
+//      if (!left.isEmpty && acc.retweets < leftTweet.retweets) {
+//        if (!right.isEmpty && leftTweet.retweets < rightTweet.retweets)
+//          rightTweet
+//        else
+//          leftTweet
+//      }
+//      else if (!right.isEmpty && acc.retweets < right.mostRetweeted.retweets) rightTweet
+//      else acc
+//    }
+//    mostRetweetedAcc(elem)
+//  }
 
   def descendingByRetweet: TweetList = new Cons(mostRetweeted, remove(mostRetweeted).descendingByRetweet)
 
