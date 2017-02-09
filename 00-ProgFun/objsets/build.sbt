@@ -15,6 +15,8 @@ commonSourcePackages += "common"
 
 courseId := "bRPXgjY9EeW6RApRXdjJPw"
 
+fork  := true
+
 // See documentation in ProgFunBuild.scala
 assignmentsMap := {
   val styleSheetPath = (baseDirectory.value / ".." / ".." / "project" / "scalastyle_config.xml").getPath
