@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ParallelProgramming/.idea/modules/parallelprogramming.iml" filepath="$PROJECT_DIR$/ParallelProgramming/.idea/modules/parallelprogramming.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ParallelProgramming/.idea/modules/parallelprogramming-build.iml" filepath="$PROJECT_DIR$/ParallelProgramming/.idea/modules/parallelprogramming-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Functional Program Design in Scala/quickcheck/.idea/modules/quickcheck.iml" filepath="$PROJECT_DIR$/Functional Program Design in Scala/quickcheck/.idea/modules/quickcheck.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Functional Program Design in Scala/quickcheck/.idea/modules/quickcheck-build.iml" filepath="$PROJECT_DIR$/Functional Program Design in Scala/quickcheck/.idea/modules/quickcheck-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/00-ProgFun/forcomp/.idea/modules/root.iml" filepath="$PROJECT_DIR$/00-ProgFun/forcomp/.idea/modules/root.iml" />
+      <module fileurl="file://$PROJECT_DIR$/00-ProgFun/recfun/.idea/modules/root.iml" filepath="$PROJECT_DIR$/00-ProgFun/recfun/.idea/modules/root.iml" />
+      <module fileurl="file://$PROJECT_DIR$/00-ProgFun/forcomp/.idea/modules/root-build.iml" filepath="$PROJECT_DIR$/00-ProgFun/forcomp/.idea/modules/root-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/00-ProgFun/recfun/.idea/modules/root-build.iml" filepath="$PROJECT_DIR$/00-ProgFun/recfun/.idea/modules/root-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/scala-specialization.iml" filepath="$PROJECT_DIR$/.idea/modules/scala-specialization.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/scala-specialization-build.iml" filepath="$PROJECT_DIR$/.idea/modules/scala-specialization-build.iml" />
+    </modules>
+  </component>
+</project>

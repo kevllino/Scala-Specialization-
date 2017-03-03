@@ -111,6 +111,8 @@ class FunSetSuite extends FunSuite {
 
   test("union contains all elements of each set") {
     new TestSets {
+      val u1 = union(s1, s2)
+      val u2 = union(u1, s3)
       val s = union(s1, s2)
       val ex2 = union(s3, s4)
       assert(contains(s, 1), "Union 1")
@@ -118,6 +120,7 @@ class FunSetSuite extends FunSuite {
       assert(!contains(s, 3), "Union 3")
       assert(contains(ex2, -4), "Union 4")
       assert(!contains(ex2, 7), "Union 5")
+      assert(contains(u2, 1) && contains(u2, 2) && contains(u2, 3), "Union All")
     }
   }
 
@@ -160,6 +163,14 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("exists an element in s that satisfies the predicate") {
+    new TestSets {
+      val u1 = union(s1, s2)
+      val u2 = union(u1, s3)
+      assert(exists(u1, e => e >= 1), "Exists 1")
+      assert(!exists(u1, e => e > 3), "Exists 2")
+    }
+  }
 
   test("exists returns whether there exists a bounded integer within `s`that satisfies `p`."){
     new TestSets {
@@ -173,6 +184,14 @@ class FunSetSuite extends FunSuite {
       assert(contains(map(negativeSet, (x: Int) => -x), 2), "Map hc")
       assert(!contains(map(positiveSet, (x: Int) => x + 10), -11), "Map sc")
       assert(contains(map(othar, (x: Int) => x * 2), 6))
+    }
+  }
+
+  test("map a set with a function") {
+    new TestSets {
+      val u1 = union(s1, s2)
+      val u2 = union(u1, s3)
+      assert(forall(map(u1, e => e + 3), e => e >= 4 && e <= 6), "Map 1")
     }
   }
 

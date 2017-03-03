@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaSbtSettings">
+    <option name="linkedExternalProjectsSettings">
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/00-ProgFun/forcomp" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/00-ProgFun/forcomp" />
+            <option value="$PROJECT_DIR$/00-ProgFun/forcomp/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="0.13.9" />
+        <option name="useAutoImport" value="true" />
+        <option name="useOurOwnAutoImport" value="true" />
+      </SbtProjectSettings>
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/00-ProgFun/funsets" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/00-ProgFun/funsets" />
+            <option value="$PROJECT_DIR$/00-ProgFun/funsets/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="0.13.9" />
+        <option name="useAutoImport" value="true" />
+        <option name="useOurOwnAutoImport" value="true" />
+      </SbtProjectSettings>
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/00-ProgFun/objsets" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/00-ProgFun/objsets" />
+            <option value="$PROJECT_DIR$/00-ProgFun/objsets/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="0.13.9" />
+        <option name="useAutoImport" value="true" />
+        <option name="useOurOwnAutoImport" value="true" />
+      </SbtProjectSettings>
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/00-ProgFun/patmat" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/00-ProgFun/patmat" />
+            <option value="$PROJECT_DIR$/00-ProgFun/patmat/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="0.13.9" />
+        <option name="useAutoImport" value="true" />
+        <option name="useOurOwnAutoImport" value="true" />
+      </SbtProjectSettings>
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/00-ProgFun/recfun" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/00-ProgFun/recfun" />
+            <option value="$PROJECT_DIR$/00-ProgFun/recfun/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="0.13.9" />
+        <option name="useAutoImport" value="true" />
+        <option name="useOurOwnAutoImport" value="true" />
+      </SbtProjectSettings>
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Functional Program Design in Scala/quickcheck" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Functional Program Design in Scala/quickcheck" />
+            <option value="$PROJECT_DIR$/Functional Program Design in Scala/quickcheck/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="0.13.9" />
+        <option name="useAutoImport" value="true" />
+        <option name="useOurOwnAutoImport" value="true" />
+      </SbtProjectSettings>
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ParallelProgramming" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ParallelProgramming" />
+            <option value="$PROJECT_DIR$/ParallelProgramming/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="0.13.9" />
+        <option name="useAutoImport" value="true" />
+        <option name="useOurOwnAutoImport" value="true" />
+      </SbtProjectSettings>
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ParallelProgramming/scalashop" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ParallelProgramming/scalashop" />
+            <option value="$PROJECT_DIR$/ParallelProgramming/scalashop/project" />
+          </set>
+        </option>
+        <option name="sbtVersion" value="0.13.9" />
+        <option name="useAutoImport" value="true" />
+        <option name="useOurOwnAutoImport" value="true" />
+      </SbtProjectSettings>
+    </option>
+  </component>
+</project>

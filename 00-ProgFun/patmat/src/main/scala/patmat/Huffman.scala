@@ -27,8 +27,6 @@ object Huffman {
     def weight(tree: CodeTree): Int = tree match {
     case Leaf(c, w) => w
     case  Fork(l, r, c, w) =>  w
-      // weight(l) + weight(r)
-
   }
   
   def chars(tree: CodeTree): List[Char] = tree match {
@@ -206,7 +204,6 @@ object Huffman {
         if (!text.isEmpty && (chars(l) contains  text.head)) encodeAcc(l)(text, 0 :: acc)
         else if (!text.isEmpty && (chars(r) contains  text.head)) encodeAcc(r)(text, 1 :: acc)
         else acc
-      // case Fork(_, r, chs, _) if chars(r) contains  text.head => encodeAcc(r)(text, 1 :: acc)
     }
       encodeAcc(tree)(text, Nil).reverse
   }
@@ -254,6 +251,7 @@ object Huffman {
    * and then uses it to perform the actual encoding.
    */
     def quickEncode(tree: CodeTree)(text: List[Char]): List[Bit] = text.flatMap(el => codeBits(convert(tree))(el) )
+
   }
 
 object Check extends App {
