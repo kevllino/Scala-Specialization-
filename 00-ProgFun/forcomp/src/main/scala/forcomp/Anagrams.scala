@@ -114,7 +114,7 @@ object Anagrams {
       case (acc, (char, freq)) =>
         val ymap = y.toMap withDefaultValue 0
         (char, freq - ymap(char))  :: acc filter(_._2 > 0)
-    }.sortBy(_._1)
+    }.sortBy(_._1) ensuring (_.forall(_._2 > 0))
 
   /** Returns a list of all anagram sentences of the given sentence.
    *
