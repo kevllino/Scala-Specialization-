@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: jline:jline:2.12.1:jar">
+    <CLASSES>
+      <root url="jar:///usr/local/activator/repository/jline/jline/2.12.1/jars/jline.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

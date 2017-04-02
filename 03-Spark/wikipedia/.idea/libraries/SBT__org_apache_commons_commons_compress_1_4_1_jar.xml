@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SBT: org.apache.commons:commons-compress:1.4.1:jar">
+    <CLASSES>
+      <root url="jar:///usr/local/activator/repository/org.apache.commons/commons-compress/1.4.1/jars/commons-compress.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
