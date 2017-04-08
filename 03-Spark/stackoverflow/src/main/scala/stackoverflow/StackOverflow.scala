@@ -1,7 +1,7 @@
 package stackoverflow
 
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.{RangePartitioner, SparkConf, SparkContext}
 
 import scala.annotation.tailrec
 
@@ -19,6 +19,7 @@ object StackOverflow extends StackOverflow {
 
     val lines   = sc.textFile("src/main/resources/stackoverflow/stackoverflow.csv")
     val raw     = rawPostings(lines)
+    // (questions, answers) = (3 983 281,4 160 520)
     val grouped = groupedPostings(raw)
     val scored  = scoredPostings(grouped)
     val vectors = vectorPostings(scored)
@@ -86,13 +87,15 @@ class StackOverflow extends Serializable {
     }
 
     // create a range partitioner my question id and use for both questions and answers RDDs
-//    val tunedPartitioner = new RangePartitioner(8, questions)
-//
-//    val partitionedQuestions = questions.partitionBy(tunedPartitioner).persist()
-//    val partitionedAnswers = answers.partitionBy(tunedPartitioner).persist()
+    val tunedPartitioner = new RangePartitioner(8, answers)
 
-    questions
-      .join(answers)
+    val partitionedQuestions = questions.partitionBy(tunedPartitioner).persist()
+   val partitionedAnswers = answers.partitionBy(tunedPartitioner).persist()
+
+    partitionedQuestions
+      .join(partitionedAnswers)
+        .partitionBy(tunedPartitioner)
+        .persist()
       .groupByKey()
 
   }
