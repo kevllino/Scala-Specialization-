@@ -79,7 +79,7 @@ class StackOverflowSuite extends FunSuite with BeforeAndAfterAll {
     val groupped = groupedPostings(rdd)
     val scored = scoredPostings(groupped)
     val vectored = vectorPostings(scored)
-    assert(vectored.collect() === Array((10, 67)))
+    assert(vectored.collect() === Array((500000, 67)))
   }
 
 }
