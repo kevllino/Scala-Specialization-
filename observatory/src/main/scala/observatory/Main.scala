@@ -5,20 +5,6 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.{SparkConf, SparkContext}
 
 object Main extends App {
-  case class Station(
-                      stn: String,
-                      wban: String,
-                      latitude: Double,
-                      longitude: Double
-                    )
-
-  case class WeatherRecord(
-                            stn: String,
-                            wban: String,
-                            month: Int,
-                            day: Int,
-                            temperature: Double
-                          )
 
   Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
 
