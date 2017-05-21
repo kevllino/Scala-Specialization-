@@ -1,11 +1,13 @@
 package observatory
 
 import com.sksamuel.scrimage.{Image, Pixel}
-
+import math.{acos, sin, cos, abs, pow}
+import Color._
 /**
   * 2nd milestone: basic visualization
   */
 object Visualization {
+
 
   /**
     * @param temperatures Known temperatures: pairs containing a location and the temperature at this location
@@ -13,7 +15,37 @@ object Visualization {
     * @return The predicted temperature at `location`
     */
   def predictTemperature(temperatures: Iterable[(Location, Double)], location: Location): Double = {
-    ???
+
+    val N = temperatures.size
+
+    val earthRadius = 6371.0
+
+    def distance(loc1: Location, loc2: Location): Double = {
+      val greatCircleDistance = acos(sin(loc1.lat) * sin(loc2.lat) + cos(loc1.lat) * cos(loc2.lat) * cos(abs(loc1.lon - loc2.lon)))
+      greatCircleDistance * earthRadius
+    }
+
+    def weight(loc1: Location, loc2: Location, p: Int = 2): Double = {
+      if (loc1 == loc2) 0.0
+      else {
+        val d = distance(loc1, loc2)
+        if (d <= 1) 0.0
+        else 1 / pow(d, p)
+      }
+    }
+
+    val locationWeightsAndTemperatures = temperatures.map{ case (loc, temp) => (weight(loc, location), temp) }
+    val knownTemperature = locationWeightsAndTemperatures.find( _._1 == 0)
+
+    val predictedTemperature = if (knownTemperature.isDefined) knownTemperature.get._2
+    else {
+      val numerator = locationWeightsAndTemperatures.foldLeft(0.0)((acc, currElem) => acc + currElem._1 * currElem._2)
+      val denominator = locationWeightsAndTemperatures.foldLeft(0.0)( (acc, currElem) => acc + currElem._1)
+      numerator / denominator
+    }
+
+    if (predictedTemperature.isNaN) 0.0 else predictedTemperature
+
   }
 
   /**
@@ -22,7 +54,25 @@ object Visualization {
     * @return The color that corresponds to `value`, according to the color scale defined by `points`
     */
   def interpolateColor(points: Iterable[(Double, Color)], value: Double): Color = {
-    ???
+
+
+    val sortedPoints = points.toSeq.sortBy(_._1)
+    val knownPoint = sortedPoints.find(_._1 == value)
+
+    if (knownPoint.isDefined) knownPoint.get._2
+    else if (value > sortedPoints.last._1) sortedPoints.last._2
+    else if (value < sortedPoints.head._1) sortedPoints.head._2
+    else {
+      val beforeAndAfterPoints = sortedPoints.sliding(2).find(p => p.head._1 <= value && value <= p.last._1)
+      val (t0, c0) = beforeAndAfterPoints.get.head
+      val (t1, c1) = beforeAndAfterPoints.get.last
+
+      Color(
+        interpolateRGB(t0, c0.red, t1, c1.red, value),
+        interpolateRGB(t0, c0.green, t1, c1.green, value),
+        interpolateRGB(t0, c0.blue, t1, c1.blue, value)
+      )
+    }
   }
 
   /**
