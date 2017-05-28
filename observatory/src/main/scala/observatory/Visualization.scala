@@ -3,11 +3,17 @@ package observatory
 import com.sksamuel.scrimage.{Image, Pixel}
 import math.{acos, sin, cos, abs, pow}
 import Color._
+import scala.math._
 /**
   * 2nd milestone: basic visualization
   */
 object Visualization {
 
+  val earthRadius = 6371.0
+  def distance(loc1: Location, loc2: Location): Double = {
+    val greatCircleDistance = acos(sin(loc1.latRad) * sin(loc2.latRad) + cos(loc1.latRad) * cos(loc2.latRad) * cos(abs(loc1.lonRad - loc2.lonRad)))
+    greatCircleDistance * earthRadius
+  }
 
   /**
     * @param temperatures Known temperatures: pairs containing a location and the temperature at this location
@@ -17,13 +23,6 @@ object Visualization {
   def predictTemperature(temperatures: Iterable[(Location, Double)], location: Location): Double = {
 
     val N = temperatures.size
-
-    val earthRadius = 6371.0
-
-    def distance(loc1: Location, loc2: Location): Double = {
-      val greatCircleDistance = acos(sin(loc1.lat) * sin(loc2.lat) + cos(loc1.lat) * cos(loc2.lat) * cos(abs(loc1.lon - loc2.lon)))
-      greatCircleDistance * earthRadius
-    }
 
     def weight(loc1: Location, loc2: Location, p: Int = 2): Double = {
       if (loc1 == loc2) 0.0
@@ -74,15 +73,37 @@ object Visualization {
       )
     }
   }
-
-  /**
-    * @param temperatures Known temperatures
-    * @param colors Color scale
-    * @return A 360×180 image where each pixel shows the predicted temperature at its location
-    */
-  def visualize(temperatures: Iterable[(Location, Double)], colors: Iterable[(Double, Color)]): Image = {
-    ???
-  }
+//
+//  /**
+//    * @param temperatures Known temperatures
+//    * @param colors Color scale
+//    * @return A 360×180 image where each pixel shows the predicted temperature at its location
+//    */
+//  def visualize(temperatures: Iterable[(Location, Double)], colors: Iterable[(Double, Color)], alpha: Int): Image = {
+//     // latitude = x and longitude = y
+//    // x: -180 0 179 and y: 90 0 -89
+//
+//    val topLeft = Location(90, -180)
+//    val lowRIght = Location(-89, 179)
+//
+//    val height = 180
+//    val width = 360
+//
+//    val points: Iterable[Location] = for {
+//      lat  <- topLeft.lat to 179
+//      lon <-  topLeft.lon to(-89, -1)
+//    } yield Location(lat, lon)
+//
+//    val  pixels: Array[Pixel] = points.map( loc => {
+//      val temp = predictTemperature(temperatures, loc)
+//      val color = interpolateColor(colors, temp)
+//      Pixel(color.red, color.green, color.blue, alpha)
+//    }
+//    ).toArray
+//
+//    Image(width, height, pixels)
+//
+//  }
 
 }
 
