@@ -73,37 +73,41 @@ object Visualization {
       )
     }
   }
-//
-//  /**
-//    * @param temperatures Known temperatures
-//    * @param colors Color scale
-//    * @return A 360×180 image where each pixel shows the predicted temperature at its location
-//    */
-//  def visualize(temperatures: Iterable[(Location, Double)], colors: Iterable[(Double, Color)], alpha: Int): Image = {
-//     // latitude = x and longitude = y
-//    // x: -180 0 179 and y: 90 0 -89
-//
-//    val topLeft = Location(90, -180)
-//    val lowRIght = Location(-89, 179)
-//
-//    val height = 180
-//    val width = 360
-//
-//    val points: Iterable[Location] = for {
-//      lat  <- topLeft.lat to 179
-//      lon <-  topLeft.lon to(-89, -1)
-//    } yield Location(lat, lon)
-//
-//    val  pixels: Array[Pixel] = points.map( loc => {
-//      val temp = predictTemperature(temperatures, loc)
-//      val color = interpolateColor(colors, temp)
-//      Pixel(color.red, color.green, color.blue, alpha)
-//    }
-//    ).toArray
-//
-//    Image(width, height, pixels)
-//
-//  }
+
+  /**
+    * @param temperatures Known temperatures
+    * @param colors Color scale
+    * @return A 360×180 image where each pixel shows the predicted temperature at its location
+    */
+  def visualize(temperatures: Iterable[(Location, Double)], colors: Iterable[(Double, Color)], alpha: Int=255): Image = {
+
+    val height = 180
+    val width = 360
+    val topLeft = Location(90, -180)
+    val lowRight = Location(-89, 179)
+
+    val latStep = (lowRight.lat - topLeft.lat) / height
+    val lonStep = (lowRight.lon - topLeft.lon) / width
+
+
+
+    val locations = (for {
+      latPixel <- 0 to height - 1
+      lonPixel <- 0 to width - 1
+      lat = lowRight.lat + (latPixel * latStep)
+      lon = lowRight.lon + (lonPixel * lonStep)
+    } yield Location(lat, lon))
+
+    val  pixels: Array[Pixel] = locations.par.map( loc => {
+      val temp = predictTemperature(temperatures, loc)
+      val color = interpolateColor(colors, temp)
+      Pixel(color.red, color.green, color.blue, alpha)
+    }
+    ).toArray
+
+    Image(width, height, pixels)
+
+  }
 
 }
 

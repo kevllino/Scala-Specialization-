@@ -9,6 +9,7 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.prop.Checkers
 import Extraction._
 import Visualization._
+import Main._
 
 @RunWith(classOf[JUnitRunner])
 class VisualizationTest extends FunSuite with Checkers {
@@ -50,17 +51,17 @@ class VisualizationTest extends FunSuite with Checkers {
     val lya = locationYearlyAverageRecords(lt)
     assert(lya.size === 8253)
 
-    val arrayOfLatLon = (for {
+    val latLon = (for {
       lat <- 90 to -89 by -1
       lon <- -180 to 179
     } yield (lat, lon)).toArray
 
-    val arrayOfTemps = arrayOfLatLon.par.map{case (lat, lon) => predictTemperature(lya, Location(lat, lon))}
-    assert(arrayOfTemps.size === arrayOfLatLon.size)
+    val arrayOfTemps = latLon.par.map{case (lat, lon) => predictTemperature(lya, Location(lat, lon))}
+    assert(arrayOfTemps.size === latLon.size)
   }
 
 
-  test("interpolateColor() should work with some records"){
+  ignore("interpolateColor() should work with some records"){
     val cs = Seq(
       (200.0, Color(100, 200, 300)),
       (100.0, Color(100, 100, 100))
@@ -78,6 +79,25 @@ class VisualizationTest extends FunSuite with Checkers {
 
     assert(interpolateColor(Color.scale, 46.0) === Color(255, 128, 128))
     assert(interpolateColor(Color.scale, 22.0) === Color(255, 128, 0))
+  }
+
+
+  test("load and visualize the data"){
+    val year = 1975
+    val stationsFile = "/stations.csv"
+    val temperaturesFile = s"/${year}.csv"
+
+    val lt = locateTemperatures(year, stationsFile, temperaturesFile)
+    // assert(lt.size === 2169320)
+    val lya = locationYearlyAverageRecords(lt)
+    // assert(lya.size === 8235)
+
+    val i = visualize(lya, Color.scale, 255)
+    assert(i.count === 360 * 180)
+
+    val path = (s"//Users/keid/Nitro/scala-specialization/observatory/src/test/resources/${year}.png")
+    i.output(path)
+    // assert(p.toString === path)
   }
 
 }
